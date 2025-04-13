@@ -10,12 +10,16 @@ import Home from './components/home';
 function App() {
   const [currentTab, setCurrentTab] = useState('home');
   const [showProfile, setShowProfile] = useState(false);
+  const [sidebarExpanded, setSidebarExpanded] = useState(true);
+
+  const toggleSidebar = () => {
+    setSidebarExpanded(!sidebarExpanded);
+  };
 
   const renderContent = () => {
     if (showProfile) {
       return <Profile />;
     }
-
     switch (currentTab) {
       case 'assessment':
         return <Assessment />;
@@ -31,31 +35,60 @@ function App() {
 
   return (
     <div className="app-container">
-      <aside className="sidebar">
-        <div className="logo">
-          <h2>Aanya Tutor</h2>
+      <aside className={`sidebar ${sidebarExpanded ? 'expanded' : 'collapsed'}`}>
+        <div className="sidebar-header">
+          <div className="logo">
+            {sidebarExpanded ? <h2>Aanya Tutor</h2> : <h2>AT</h2>}
+          </div>
+          <button className="toggle-btn" onClick={toggleSidebar}>
+            {sidebarExpanded ? '◀' : '▶'}
+          </button>
         </div>
         <nav className="nav-menu">
           <ul>
             <li className="nav-item">
               <span className="icon">⏱️</span>
-              View History
+              {sidebarExpanded && <span className="nav-text">View History</span>}
             </li>
-            <li className="nav-item">
+            <li
+              className={`nav-item ${currentTab === 'home' ? 'active' : ''}`}
+              onClick={() => {
+                setCurrentTab('home');
+                setShowProfile(false);
+              }}
+            >
               <span className="icon">❓</span>
-              Get Help
+              {sidebarExpanded && <span className="nav-text">Get Help</span>}
             </li>
-            <li className="nav-item">
+            <li
+              className={`nav-item ${currentTab === 'assessment' ? 'active' : ''}`}
+              onClick={() => {
+                setCurrentTab('assessment');
+                setShowProfile(false);
+              }}
+            >
               <span className="icon">📝</span>
-              Assessments
+              {sidebarExpanded && <span className="nav-text">Assessments</span>}
             </li>
-            <li className="nav-item">
+            <li
+              className={`nav-item ${currentTab === 'practice' ? 'active' : ''}`}
+              onClick={() => {
+                setCurrentTab('practice');
+                setShowProfile(false);
+              }}
+            >
               <span className="icon">✏️</span>
-              Practice Questions
+              {sidebarExpanded && <span className="nav-text">Practice Questions</span>}
             </li>
-            <li className="nav-item">
+            <li
+              className={`nav-item ${currentTab === 'teach' ? 'active' : ''}`}
+              onClick={() => {
+                setCurrentTab('teach');
+                setShowProfile(false);
+              }}
+            >
               <span className="icon">🆕</span>
-              New Topics
+              {sidebarExpanded && <span className="nav-text">New Topics</span>}
             </li>
           </ul>
         </nav>
