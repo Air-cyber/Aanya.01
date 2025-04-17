@@ -6,6 +6,7 @@ import TeachMeTopic from './components/TeachMeTopic';
 import ProfileMenu from './components/ProfileMenu';
 import Profile from './components/Profile';
 import Home from './components/home';
+import Dashboard from './components/dashboard';
 
 function App() {
   const [currentTab, setCurrentTab] = useState('home');
@@ -23,6 +24,8 @@ function App() {
         return <PracticeQuestions />;
       case 'teach':
         return <TeachMeTopic />;
+      case 'dashboard':
+        return <Dashboard />;
       case 'home':
       default:
         return <Home />;
@@ -37,6 +40,16 @@ function App() {
         </div>
         <nav className="nav-menu">
           <ul>
+            <li
+              className={`nav-item ${currentTab === 'dashboard' ? 'active' : ''}`}
+              onClick={() => {
+                setCurrentTab('dashboard');
+                setShowProfile(false);
+              }}
+            >
+              <span className="icon">📊</span>
+              Dashboard
+            </li>
             <li className="nav-item">
               <span className="icon">⏱️</span>
               View History
@@ -99,6 +112,15 @@ function App() {
                 }}
               >
                 Teach Me a Topic
+              </li>
+              <li
+                className={currentTab === 'dashboard' ? 'active' : ''}
+                onClick={() => {
+                  setCurrentTab('dashboard');
+                  setShowProfile(false);
+                }}
+              >
+                Dashboard
               </li>
             </ul>
           </nav>
